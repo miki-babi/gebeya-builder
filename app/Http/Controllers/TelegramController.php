@@ -23,18 +23,14 @@ class TelegramController extends Controller
             ['label' => 'Tax', 'amount' => 100],
         ];
 
-        $response = Telegram::sendInvoice(
-            $chatId,
-            "Test Invoice",
-            "This is a test product",
-            "payload_123",  // unique payload to identify this invoice
-            "", // get from your .env
-            "USD",
-            $prices,
-            ['start_parameter' => 'test-invoice'] // optional extra params
-        );
+       $inlineKeyboard = [
+    [
+        ['text' => 'Visit Site', 'url' => 'https://example.com'],
+        ['text' => 'Like', 'callback_data' => 'like_photo']
+    ]
+];
 
-        Telegram::sendMessage($chatId, json_encode($response->json(), JSON_PRETTY_PRINT));
+Telegram::sendPhotoWithKeyboard($chatId, 'https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Check this out!', $inlineKeyboard, true);
     }
 
 

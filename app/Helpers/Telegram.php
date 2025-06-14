@@ -265,17 +265,6 @@ class Telegram
             'results' => json_encode($results),
         ], $extra));
     }
-    public static function sendInvoice($chatId, $title, $description, $payload, $providerToken, $currency, $prices, $extra = [])
-    {
-        return Http::post(self::baseUrl() . 'sendInvoice', array_merge([
-            'chat_id' => $chatId,
-            'title' => $title,
-            'description' => $description,
-            'payload' => $payload,
-            'provider_token' => $providerToken,
-            'currency' => $currency,
-            'prices' => json_encode($prices),
-        ], $extra));
-    }
+    
 
 }
