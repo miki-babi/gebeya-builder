@@ -12,19 +12,20 @@ class TelegramController extends Controller
     //
     public function handleWebhook(Request $request)
     {
-        $data = $request->all();
-        // Log the incoming request data for debugging
-        Log::info('Telegram Webhook Data:', $data);
+       $data = $request->all();
 
-        $chatId = $data['message']['chat']['id'] ?? null;
-        $text = strtolower($data['message']['text'] ?? '');
+    $chatId = $data['message']['chat']['id'] ?? null;
 
-        if ($chatId && in_array($text, ['/start', '/hello'])) {
-            $reply = "Hello!";
+    if ($chatId) {
+        // Show "typing..." action in the chat for 5 seconds
+        Telegram::sendChatAction($chatId, 'typing');
 
-            Telegram::sendMessage($chatId, $reply);
-        }
+        // Then send a message after a short delay (simulate processing)
+        sleep(2);
 
-        return response('OK', 200);
+        Telegram::sendMessage($chatId, "Hello! I'm typing like a human 😄");
+    }
+
+    return response('OK', 200);
     }
 }
