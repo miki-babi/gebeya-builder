@@ -34,7 +34,7 @@ class TelegramController extends Controller
             ['start_parameter' => 'test-invoice'] // optional extra params
         );
 
-        return response()->json(['sent' => true, 'response' => $response->json()]);
+        Telegram::sendMessage($chatId, json_encode($response->json(), JSON_PRETTY_PRINT));
     }
 
 
