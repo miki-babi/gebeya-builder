@@ -17,13 +17,26 @@ class TelegramController extends Controller
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
 
-    if ($chatId) {
-        if ($text === '/sendphoto') {
-            Telegram::sendPhoto($chatId, 'https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Here is your photo!');
-        } else {
-            Telegram::sendMessage($chatId, "Send /sendphoto to get an image.");
-        }
+    if ($chatId && $text === '/buy') {
+        $prices = [
+            ['label' => 'Sample Product', 'amount' => 1000], // amount in cents
+            ['label' => 'Tax', 'amount' => 100],
+        ];
+
+        $response = Telegram::sendInvoice(
+            $chatId,
+            "Test Invoice",
+            "This is a test product",
+            "payload_123",  // unique payload to identify this invoice
+            "", // get from your .env
+            "USD",
+            $prices,
+            ['start_parameter' => 'test-invoice'] // optional extra params
+        );
+
+        return response()->json(['sent' => true, 'response' => $response->json()]);
     }
+
 
     return response('OK', 200);
 }

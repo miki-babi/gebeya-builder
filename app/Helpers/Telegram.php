@@ -168,4 +168,114 @@ class Telegram
         ]);
     }
 
+    public static function sendPhotoWithKeyboard($chatId, $photoUrl, $caption = '', $keyboard = [], $inline = false)
+{
+    $replyMarkup = $inline
+        ? json_encode(['inline_keyboard' => $keyboard])
+        : json_encode(['keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => true]);
+
+    return Http::post(self::baseUrl() . 'sendPhoto', [
+        'chat_id' => $chatId,
+        'photo' => $photoUrl,
+        'caption' => $caption,
+        'reply_markup' => $replyMarkup,
+    ]);
+}
+    public static function sendMessageWithKeyboard($chatId, $text, $keyboard = [], $inline = false)
+    {
+        $replyMarkup = $inline
+            ? json_encode(['inline_keyboard' => $keyboard])
+            : json_encode(['keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => true]);
+
+        return Http::post(self::baseUrl() . 'sendMessage', [
+            'chat_id' => $chatId,
+            'text' => $text,
+            'reply_markup' => $replyMarkup,
+        ]);
+    }
+    public static function editMessageReplyMarkup($chatId, $messageId, $keyboard = [], $inline = false)
+    {
+        $replyMarkup = $inline
+            ? json_encode(['inline_keyboard' => $keyboard])
+            : json_encode(['keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => true]);
+
+        return Http::post(self::baseUrl() . 'editMessageReplyMarkup', [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+            'reply_markup' => $replyMarkup,
+        ]);
+    }
+    public static function sendLocation($chatId, $latitude, $longitude, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'sendLocation', array_merge([
+            'chat_id' => $chatId,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+        ], $extra));
+    }
+    public static function sendVenue($chatId, $latitude, $longitude, $title, $address, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'sendVenue', array_merge([
+            'chat_id' => $chatId,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'title' => $title,
+            'address' => $address,
+        ], $extra));
+    }
+    public static function sendPoll($chatId, $question, $options, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'sendPoll', array_merge([
+            'chat_id' => $chatId,
+            'question' => $question,
+            'options' => json_encode($options),
+        ], $extra));
+    }
+    public static function stopPoll($chatId, $messageId, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'stopPoll', array_merge([
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+        ], $extra));
+    }
+    public static function sendDice($chatId, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'sendDice', array_merge([
+            'chat_id' => $chatId,
+        ], $extra));
+    }
+    public static function setWebhook($url, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'setWebhook', array_merge([
+            'url' => $url,
+        ], $extra));
+    }
+    public static function deleteWebhook($extra = [])
+    {
+        return Http::post(self::baseUrl() . 'deleteWebhook', $extra);
+    }
+    public static function getWebhookInfo()
+    {
+        return Http::post(self::baseUrl() . 'getWebhookInfo');
+    }
+    public static function answerInlineQuery($inlineQueryId, $results, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'answerInlineQuery', array_merge([
+            'inline_query_id' => $inlineQueryId,
+            'results' => json_encode($results),
+        ], $extra));
+    }
+    public static function sendInvoice($chatId, $title, $description, $payload, $providerToken, $currency, $prices, $extra = [])
+    {
+        return Http::post(self::baseUrl() . 'sendInvoice', array_merge([
+            'chat_id' => $chatId,
+            'title' => $title,
+            'description' => $description,
+            'payload' => $payload,
+            'provider_token' => $providerToken,
+            'currency' => $currency,
+            'prices' => json_encode($prices),
+        ], $extra));
+    }
+
 }
