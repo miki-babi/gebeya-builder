@@ -3,18 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class TelegramController extends Controller
 {
     //
     public function handleWebhook(Request $request)
     {
-        // Handle the incoming webhook request from Telegram
-        $update = $request->all();
+        $data = $request->all();
 
-        // Process the update (e.g., send a message, handle commands, etc.)
-        // This is where you would implement your bot's logic
+        $chatId = $data['message']['chat']['id'] ?? null;
+        $text = strtolower($data['message']['text'] ?? '');
 
-        return response()->json(['status' => 'success']);
+        if ($chatId && in_array($text, ['/start', '/hello'])) {
+            $reply = "Hello!";
+            
+            Http::post("https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN') . "/sendMessage", [
+                'chat_id' => $chatId,
+                'text' => $reply
+            ]);
+        }
+
+        return response('OK', 200);
     }
 }
