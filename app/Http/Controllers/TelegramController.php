@@ -12,20 +12,19 @@ class TelegramController extends Controller
     //
     public function handleWebhook(Request $request)
     {
-       $data = $request->all();
+        $data = $request->all();
 
     $chatId = $data['message']['chat']['id'] ?? null;
+    $text = strtolower($data['message']['text'] ?? '');
 
     if ($chatId) {
-        // Show "typing..." action in the chat for 5 seconds
-        Telegram::sendChatAction($chatId, 'typing');
-
-        // Then send a message after a short delay (simulate processing)
-        sleep(2);
-
-        Telegram::sendMessage($chatId, "Hello! I'm typing like a human 😄");
+        if ($text === '/sendphoto') {
+            Telegram::sendPhoto($chatId, 'https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Here is your photo!');
+        } else {
+            Telegram::sendMessage($chatId, "Send /sendphoto to get an image.");
+        }
     }
 
     return response('OK', 200);
-    }
+}
 }
