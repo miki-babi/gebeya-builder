@@ -17,7 +17,7 @@ class TelegramController extends Controller
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
 
-    Telegram::sendToChannel('@axumverse', '🚀 New product launched!');
+    Telegram::sendToChannel('@axumverse', $text);
 
 
 
