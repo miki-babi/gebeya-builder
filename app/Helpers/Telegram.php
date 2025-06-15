@@ -97,11 +97,20 @@ class Telegram
             'text' => $text,
         ], $extra));
     }
-    public static function sendDeleteMessage($chatId, $messageId)
+    public static function sendDeleteMessage($chatId, $messageId, $extra = [])
     {
-        return Http::post(self::baseUrl() . 'deleteMessage', [
+        return Http::post(self::baseUrl() . 'deleteMessage', array_merge([
             'chat_id' => $chatId,
             'message_id' => $messageId,
+        ], $extra));
+    }
+
+    public static function copyMessage($chatId, $messageId)
+    {
+        return Http::post(self::baseUrl() . 'copyMessage', [
+            'from_chat_id' => $chatId,
+            'message_id' => $messageId,
+            'chat_id' => '@axumverse',
         ]);
     }
 

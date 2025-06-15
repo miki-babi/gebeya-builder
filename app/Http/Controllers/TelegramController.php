@@ -20,8 +20,8 @@ class TelegramController extends Controller
 
     // Telegram::sendMessage($chatId, $text);
     // Telegram::sendMessage('@axumverse', $text);
-    Telegram::sendDeleteMessage('@axumverse', 52);
-
+    // Telegram::sendDeleteMessage('@axumverse', 52);
+    Telegram::copyMessage($chatId, 52);
 
 
     return response('OK', 200);
