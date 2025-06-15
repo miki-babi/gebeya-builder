@@ -19,7 +19,8 @@ class TelegramController extends Controller
     $text = strtolower($data['message']['text'] ?? '');
 
     // Telegram::sendMessage($chatId, $text);
-    Telegram::sendMessage('@axumverse', $text);
+    // Telegram::sendMessage('@axumverse', $text);
+    Telegram::sendDeleteMessage('@axumverse', 52);
 
 
 

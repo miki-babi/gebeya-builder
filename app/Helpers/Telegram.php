@@ -97,6 +97,13 @@ class Telegram
             'text' => $text,
         ], $extra));
     }
+    public static function sendDeleteMessage($chatId, $messageId)
+    {
+        return Http::post(self::baseUrl() . 'deleteMessage', [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+        ]);
+    }
 
     public static function deleteMessage($chatId, $messageId)
     {
