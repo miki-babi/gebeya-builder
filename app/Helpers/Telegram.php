@@ -265,6 +265,14 @@ class Telegram
             'results' => json_encode($results),
         ], $extra));
     }
-    
+    public static function sendToChannel($channelUsername, $text, $parseMode = 'HTML')
+{
+    return Http::post(self::baseUrl() . 'sendMessage', [
+        'chat_id' => $channelUsername, // e.g. '@mychannel'
+        'text' => $text,
+        'parse_mode' => $parseMode
+    ]);
+}
+
 
 }
