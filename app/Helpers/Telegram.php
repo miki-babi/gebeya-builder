@@ -105,14 +105,15 @@ class Telegram
         ], $extra));
     }
 
-    public static function copyMessage($chatId, $messageId)
-    {
-        return Http::post(self::baseUrl() . 'copyMessage', [
-            'from_chat_id' => $chatId,
-            'message_id' => $messageId,
-            'chat_id' => '@axumverse',
-        ]);
-    }
+    public static function copyMessage($fromChatId, $messageId, $targetChatId)
+{
+    return Http::post(self::baseUrl() . 'copyMessage', [
+        'from_chat_id' => $fromChatId,
+        'message_id' => $messageId,
+        'chat_id' => $targetChatId
+    ]);
+}
+
 
     public static function deleteMessage($chatId, $messageId)
     {
