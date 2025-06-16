@@ -24,7 +24,7 @@ class TelegramController extends Controller
     // Telegram::copyMessage(1285282178, 52, '@axumverse');
 
   Telegram::sendMiniAppButton(
-        $chatId,
+        '@axumverse',
         'test',
         'buy now',
         'https://example.com',
