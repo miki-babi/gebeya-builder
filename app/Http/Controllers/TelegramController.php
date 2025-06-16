@@ -19,11 +19,11 @@ class TelegramController extends Controller
     $text = strtolower($data['message']['text'] ?? '');
 
     // Telegram::sendMessage($chatId, $text);
-    // Telegram::sendMessage('@axumverse', $text);
+    Telegram::sendMessage('@axumverse', $text);
     // Telegram::sendDeleteMessage('@axumverse', 52);
     // Telegram::copyMessage(1285282178, 52, '@axumverse');
 
-  Telegram::sendMiniAppButton('@axumverse', 'Welcome to Axum!', 'Open Store', 'https://example.com');
+  Telegram::sendMiniAppButton( $chatId , 'Welcome to Axum!', 'Open Store', 'https://example.com');
 
 
     return response('OK', 200);
