@@ -289,25 +289,23 @@ class Telegram
     ]);
 }
 
-public static function sendMiniAppButtonToChannel($channelUsername, $text, $buttonText, $webAppUrl)
+public static function sendMessageWithUrlButton($chatId, $text, $buttonText, $buttonUrl)
 {
     return Http::post(self::baseUrl() . 'sendMessage', [
-        'chat_id' => $channelUsername, // e.g. '@axumverse'
+        'chat_id' => $chatId, // e.g. '@yourchannel' or numeric id
         'text' => $text,
         'reply_markup' => json_encode([
-    'inline_keyboard' => [
-        [
-            [
-                'text' => 'Open Store',
-                'url' => 'https://your-mini-app-url.com'
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => $buttonText,
+                        'url' => $buttonUrl
+                    ]
+                ]
             ]
-        ]
-    ]
-])
+        ])
     ]);
 }
-
-
 
 
 }
