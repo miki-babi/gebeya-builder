@@ -289,6 +289,25 @@ class Telegram
     ]);
 }
 
+public static function sendMiniAppButtonToChannel($channelUsername, $text, $buttonText, $webAppUrl)
+{
+    return Http::post(self::baseUrl() . 'sendMessage', [
+        'chat_id' => $channelUsername, // e.g. '@axumverse'
+        'text' => $text,
+        'reply_markup' => json_encode([
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => $buttonText,
+                        'web_app' => ['url' => $webAppUrl]
+                    ]
+                ]
+            ]
+        ])
+    ]);
+}
+
+
 
 
 }
