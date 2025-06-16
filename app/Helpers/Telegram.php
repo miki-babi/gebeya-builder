@@ -295,15 +295,15 @@ public static function sendMiniAppButtonToChannel($channelUsername, $text, $butt
         'chat_id' => $channelUsername, // e.g. '@axumverse'
         'text' => $text,
         'reply_markup' => json_encode([
-            'inline_keyboard' => [
-                [
-                    [
-                        'text' => $buttonText,
-                        'web_app' => ['url' => $webAppUrl]
-                    ]
-                ]
+    'inline_keyboard' => [
+        [
+            [
+                'text' => 'Open Store',
+                'url' => 'https://your-mini-app-url.com'
             ]
-        ])
+        ]
+    ]
+])
     ]);
 }
 
