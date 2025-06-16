@@ -11,29 +11,38 @@ class TelegramController extends Controller
 {
     //
     public function handleWebhook(Request $request)
-    {
-        $data = $request->all();
-        Log::info('Telegram Webhook Data: ', $data);
+{
+    $data = $request->all();
+    Log::info('Telegram Webhook Data: ', $data);
 
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
 
-    // Telegram::sendMessage($chatId, $text);
-    Telegram::sendMessage('@axumverse', $text);
-    // Telegram::sendDeleteMessage('@axumverse', 52);
-    // Telegram::copyMessage(1285282178, 52, '@axumverse');
+    if (!$chatId) {
+        return response('No chat ID', 400);
+    }
 
-  Telegram::sendMiniAppButton('@axumverse', 'Welcome to Axum!', 'Open Store', 'https://example.com');
-  Telegram::sendMessageWithUrlButton(
-    '@axumverse',
-    'Check out our new store!',
-    'Open Store',
-    'https://your-mini-app-url.com'
-);
-
-
-
+    // Check if text starts with /start startapp=
+    if (str_starts_with($text, '/start startapp=')) {
+        $param = substr($text, strlen('/start startapp='));
+        // Send mini app button to the user
+        Telegram::sendMiniAppButton(
+            $chatId,
+            "Launching your app...",
+            "Open App",
+            "https://your-mini-app-url.com/"
+        );
+    } else {
+        // Default response or ignore
+        Telegram::sendMessageWithUrlButton(
+            $chatId,
+            'Welcome! Check out our store.',
+            'Open Store',
+            'https://your-mini-app-url.com'
+        );
+    }
 
     return response('OK', 200);
 }
+
 }
