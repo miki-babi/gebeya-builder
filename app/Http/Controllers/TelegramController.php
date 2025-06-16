@@ -23,12 +23,8 @@ class TelegramController extends Controller
     // Telegram::sendDeleteMessage('@axumverse', 52);
     // Telegram::copyMessage(1285282178, 52, '@axumverse');
 
-  Telegram::sendMiniAppButton(
-        '@axumverse',
-        'test',
-        'buy now',
-        'https://example.com',
-    );
+  Telegram::sendMiniAppButton(1285282178, 'Welcome to Axum!', 'Open Store', 'https://example.com');
+
 
     return response('OK', 200);
 }

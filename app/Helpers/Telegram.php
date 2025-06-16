@@ -272,22 +272,23 @@ class Telegram
         return Http::post(self::baseUrl() . 'deleteWebhook', $extra);
     }
     public static function sendMiniAppButton($chatId, $text, $buttonText, $webAppUrl)
-    {
-        return Http::post(self::baseUrl() . 'sendMessage', [
-            'chat_id' => '@axumverse',
-            'text' => "testts",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
+{
+    return Http::post(self::baseUrl() . 'sendMessage', [
+        'chat_id' => $chatId,
+        'text' => $text,
+        'reply_markup' => json_encode([
+            'inline_keyboard' => [
+                [
                     [
-                        [
-                            'text' => "buy now",
-                            'web_app' => ['url' => 'https://example.com']
-                        ]
+                        'text' => $buttonText,
+                        'web_app' => ['url' => $webAppUrl]
                     ]
                 ]
-            ])
-        ]);
-    }
+            ]
+        ])
+    ]);
+}
+
 
 
 }
