@@ -271,18 +271,23 @@ class Telegram
     {
         return Http::post(self::baseUrl() . 'deleteWebhook', $extra);
     }
-    public static function getWebhookInfo()
+    public static function sendMiniAppButton($chatId, $text, $buttonText, $webAppUrl)
     {
-        return Http::post(self::baseUrl() . 'getWebhookInfo');
+        return Http::post(self::baseUrl() . 'sendMessage', [
+            'chat_id' => $chatId,
+            'text' => $text,
+            'reply_markup' => json_encode([
+                'inline_keyboard' => [
+                    [
+                        [
+                            'text' => $buttonText,
+                            'web_app' => ['url' => $webAppUrl]
+                        ]
+                    ]
+                ]
+            ])
+        ]);
     }
-    public static function answerInlineQuery($inlineQueryId, $results, $extra = [])
-    {
-        return Http::post(self::baseUrl() . 'answerInlineQuery', array_merge([
-            'inline_query_id' => $inlineQueryId,
-            'results' => json_encode($results),
-        ], $extra));
-    }
-    
 
 
 }
