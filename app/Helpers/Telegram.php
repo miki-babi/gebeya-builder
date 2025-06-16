@@ -274,14 +274,14 @@ class Telegram
     public static function sendMiniAppButton($chatId, $text, $buttonText, $webAppUrl)
     {
         return Http::post(self::baseUrl() . 'sendMessage', [
-            'chat_id' => $chatId,
-            'text' => $text,
+            'chat_id' => '@axumverse',
+            'text' => "testts",
             'reply_markup' => json_encode([
                 'inline_keyboard' => [
                     [
                         [
-                            'text' => $buttonText,
-                            'web_app' => ['url' => $webAppUrl]
+                            'text' => "buy now",
+                            'web_app' => ['url' => 'https://example.com']
                         ]
                     ]
                 ]
