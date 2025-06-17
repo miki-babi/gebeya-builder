@@ -324,7 +324,7 @@ public static function sendProductPost($chatId, $photoUrl, $product)
                 [
                     [
                         'text' => '🛒 Open Mini App',
-                        'web_app' => ['url' => $product['web_app_url']]
+                        'url' => ['url' => $product['web_app_url']]
                     ]
                 ]
             ]
