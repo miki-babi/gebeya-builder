@@ -1,4 +1,4 @@
-<script>
+<html><script>
   function telegramApp() {
     return {
       status: 'Loading...',
@@ -32,3 +32,4 @@
     };
   }
 </script>
+</html>
