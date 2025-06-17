@@ -323,7 +323,7 @@ public static function sendProductPost($chatId, $photoUrl, $product)
             'inline_keyboard' => [
                 [
                     [
-                        'text' => '🛒 Open Mini App',
+                        'text' => '🛒 አሁኑኑ ይዘዙ',
                         'url' => $product['web_app_url']
                     ]
                 ]
