@@ -34,12 +34,26 @@ class TelegramController extends Controller
         );
     } else {
         // Default response or ignore
-        Telegram::sendMessageWithUrlButton(
-            '@axumverse',
-            'Welcome! Check out our store.',
-            'Open Store',
-            'https://t.me/gebeya_builderbot?startapp=store',
-        );
+        // Telegram::sendMessageWithUrlButton(
+        //     '@axumverse',
+        //     'Welcome! Check out our store.',
+        //     'Open Store',
+        //     'https://t.me/gebeya_builderbot?startapp=store',
+        // );
+        $product = [
+    'name' => 'Green T-Shirt',
+    'description' => 'Comfortable cotton t-shirt',
+    'category' => 'Clothing',
+    'web_app_url' => 'https://yourdomain.com/store',
+];
+
+$photoUrls = [
+    'https://yourdomain.com/images/shirt1.jpg',
+    'https://yourdomain.com/images/shirt2.jpg',
+];
+
+Telegram::sendProductPost($chatId, $photoUrls, $product);
+
     }
 
     return response('OK', 200);

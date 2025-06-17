@@ -308,4 +308,48 @@ public static function sendMessageWithUrlButton($chatId, $text, $buttonText, $bu
 }
 
 
+public static function sendProductPost($chatId, array $photoUrls, $product)
+{
+    $caption = "*{$product['name']}*\n";
+    $caption .= "{$product['description']}\n";
+    $caption .= "_Category: {$product['category']}_";
+
+    $media = [];
+    foreach ($photoUrls as $index => $url) {
+        $item = [
+            'type' => 'photo',
+            'media' => $url,
+        ];
+        if ($index === 0) {
+            $item['caption'] = $caption;
+            $item['parse_mode'] = 'Markdown';
+        }
+        $media[] = $item;
+    }
+
+    // Send photo group
+    Http::post(self::baseUrl() . 'sendMediaGroup', [
+        'chat_id' => $chatId,
+        'media' => json_encode($media),
+    ]);
+
+    // Send Mini App button
+    return Http::post(self::baseUrl() . 'sendMessage', [
+        'chat_id' => $chatId,
+        'text' => '🛒 Open store to buy or view more products',
+        'reply_markup' => json_encode([
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => 'Open Mini App',
+                        'web_app' => ['url' => $product['web_app_url']]
+                    ]
+                ]
+            ]
+        ])
+    ]);
+}
+
+
+
 }
