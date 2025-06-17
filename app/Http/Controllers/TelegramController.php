@@ -35,7 +35,7 @@ class TelegramController extends Controller
     } else {
         // Default response or ignore
         Telegram::sendMessageWithUrlButton(
-            $chatId,
+            '@axumverse',
             'Welcome! Check out our store.',
             'Open Store',
             'https://t.me/gebeya_builderbot'
