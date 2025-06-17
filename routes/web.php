@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TelegramController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,5 +25,11 @@ Route::get('orders/{id}', [App\Http\Controllers\OrderController::class, 'show'])
 Route::get('orders/{id}/edit', [App\Http\Controllers\OrderController::class, 'edit'])->name('orders.edit');
 Route::put('orders/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('orders.update');
 Route::delete('orders/{id}', [App\Http\Controllers\OrderController::class, 'destroy'])->name('orders.destroy');
+
+Route::post('/api/telegram/startapp', function (Request $request) {
+    Log::info('Mini App Launch:', $request->all());
+    return response()->json(['status' => 'ok']);
+})->name('telegram.startapp');
+
 
 Route::post('/telegram/webhook', [TelegramController::class, 'handleWebhook'])->withoutMiddleware([VerifyCsrfToken::class]);
