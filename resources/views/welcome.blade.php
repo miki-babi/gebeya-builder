@@ -31,10 +31,10 @@
       })
       .then(res => res.json())
       .then(data => {
-        console.log("Backend response:", data);
+        alert("Backend response: " + JSON.stringify(data));
       })
       .catch(err => {
-        console.error("Failed to send data", err);
+        alert("Failed to send data: " + err);
       });
     });
   </script>
