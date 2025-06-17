@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Log;
 class Telegram
 {
     /**
@@ -314,7 +314,7 @@ public static function sendProductPost($chatId, $photoUrl, $product)
     $caption .= "{$product['description']}\n";
     $caption .= "_Category: {$product['category']}_";
 
-    return Http::post(self::baseUrl() . 'sendPhoto', [
+    $response = Http::post(self::baseUrl() . 'sendPhoto', [
         'chat_id' => $chatId,
         'photo' => $photoUrl,
         'caption' => $caption,
@@ -330,6 +330,14 @@ public static function sendProductPost($chatId, $photoUrl, $product)
             ]
         ])
     ]);
+
+    $data = $response->json();
+
+    if (isset($data['result']['message_id'])) {
+        Log::info('Message ID: ' . $data['result']['message_id']);
+    } else {
+        Log::info('Message ID not found in response.');
+    }
 }
 
 
