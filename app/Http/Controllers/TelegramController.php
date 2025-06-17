@@ -44,12 +44,12 @@ class TelegramController extends Controller
     'name' => 'Green T-Shirt',
     'description' => 'Comfortable cotton t-shirt',
     'category' => 'Clothing',
-    'web_app_url' => 'https://yourdomain.com/store',
+    'web_app_url' => 'https://t.me/gebeya_builderbot?startapp=store',
 ];
 
 $photoUrl = 'https://images.pexels.com/photos/8597551/pexels-photo-8597551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
-Telegram::sendProductPost($chatId, $photoUrl, $product);
+Telegram::sendProductPost('@axumverse', $photoUrl, $product);
 
 }
 
@@ -59,13 +59,3 @@ Telegram::sendProductPost($chatId, $photoUrl, $product);
 }
 
 
-// $product = [
-//     'name' => 'Green T-Shirt',
-//     'description' => 'Comfortable cotton t-shirt',
-//     'category' => 'Clothing',
-//     'web_app_url' => 'https://yourdomain.com/store',
-// ];
-
-// $photoUrl = 'https://yourdomain.com/images/shirt1.jpg';
-
-// Telegram::sendProductPost($chatId, $photoUrl, $product);
