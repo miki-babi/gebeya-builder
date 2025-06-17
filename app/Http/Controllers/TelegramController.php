@@ -47,16 +47,25 @@ class TelegramController extends Controller
     'web_app_url' => 'https://yourdomain.com/store',
 ];
 
-$photoUrls = [
-    'https://images.pexels.com/photos/8597551/pexels-photo-8597551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    // 'https://images.pexels.com/photos/8597551/pexels-photo-8597551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-];
+$photoUrl = 'https://images.pexels.com/photos/8597551/pexels-photo-8597551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
-Telegram::sendProductPost($chatId, $photoUrls, $product);
+Telegram::sendProductPost($chatId, $photoUrl, $product);
 
-    }
+}
 
     return response('OK', 200);
 }
 
 }
+
+
+// $product = [
+//     'name' => 'Green T-Shirt',
+//     'description' => 'Comfortable cotton t-shirt',
+//     'category' => 'Clothing',
+//     'web_app_url' => 'https://yourdomain.com/store',
+// ];
+
+// $photoUrl = 'https://yourdomain.com/images/shirt1.jpg';
+
+// Telegram::sendProductPost($chatId, $photoUrl, $product);
