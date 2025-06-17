@@ -38,7 +38,7 @@ class TelegramController extends Controller
             $chatId,
             'Welcome! Check out our store.',
             'Open Store',
-            'https://your-mini-app-url.com'
+            'https://t.me/gebeya_builderbot'
         );
     }
 
