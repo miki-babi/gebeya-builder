@@ -38,7 +38,7 @@ class TelegramController extends Controller
             '@axumverse',
             'Welcome! Check out our store.',
             'Open Store',
-            'https://t.me/gebeya_builderbot?startapp',
+            'https://t.me/gebeya_builderbot?startapp=store',
         );
     }
 
