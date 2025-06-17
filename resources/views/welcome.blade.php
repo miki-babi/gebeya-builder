@@ -1,35 +1,42 @@
-<html><script>
-  function telegramApp() {
-    return {
-      status: 'Loading...',
-      initialize() {
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Telegram Mini App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <h2>Welcome to Gebeya Mini App</h2>
+  <div id="status">Loading...</div>
 
-        const startParam = tg.initDataUnsafe.start_param;
-        this.status = "Start Param: " + startParam;
+  <script>
+    window.addEventListener("load", () => {
+      const tg = window.Telegram.WebApp;
+      tg.expand();
 
-        // Send to your Laravel backend using Fetch API
-        fetch("{{ route('telegram.startapp') }}", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-          },
-          body: JSON.stringify({
-            start_param: startParam,
-            user: tg.initDataUnsafe.user
-          })
+      const startParam = tg.initDataUnsafe.start_param;
+      document.getElementById("status").innerText = "Start Param: " + startParam;
+
+      // Send to your Laravel backend
+      fetch("{{ route('telegram.startapp') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Optional: Add auth token or API key
+        },
+        body: JSON.stringify({
+          start_param: startParam,
+          user: tg.initDataUnsafe.user
         })
-        .then(response => response.json())
-        .then(data => {
-          alert("Backend response: " + JSON.stringify(data));
-        })
-        .catch(err => {
-          alert("Failed to send data: " + err);
-        });
-      }
-    };
-  }
-</script>
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Backend response: " + JSON.stringify(data));
+      })
+      .catch(err => {
+        alert("Failed to send data: " + err);
+      });
+    });
+  </script>
+</body>
 </html>
