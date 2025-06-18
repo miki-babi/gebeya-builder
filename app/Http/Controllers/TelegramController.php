@@ -43,7 +43,7 @@ class TelegramController extends Controller
         $product = [
     'name' => 'Green T-Shirt',
     'description' => 'Comfortable cotton t-shirt',
-    'category' => ['Clothing'],
+    'category' => 'Clothing',
     'web_app_url' => 'https://t.me/gebeya_builderbot?startapp=store',
 ];
 
