@@ -312,7 +312,8 @@ public static function sendProductPost($chatId, $photoUrl, $product)
 {
     $caption = "*{$product['name']}*\n";
     $caption .= "{$product['description']}\n";
-    $caption .= "_Category: {$product['category']}_";
+    $category = is_array($product['category']) ? implode(', ', $product['category']) : $product['category'];
+    $caption .= "_Category: {$category}_";
 
     $response = Http::post(self::baseUrl() . 'sendPhoto', [
         'chat_id' => $chatId,
