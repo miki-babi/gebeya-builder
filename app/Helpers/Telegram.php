@@ -281,7 +281,7 @@ class Telegram
                 [
                     [
                         'text' => $buttonText,
-                        'web_app' => ['url' => $webAppUrl]
+                        'web_app' =>  $webAppUrl
                     ]
                 ]
             ]
