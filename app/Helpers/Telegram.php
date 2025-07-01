@@ -343,17 +343,31 @@ public static function sendProductPost($chatId, $photoUrl, $product)
  // Post message with inline button to a channel
     public static function postWithInlineButton($chatId, $text, $buttonText, $callbackData)
     {
-        $params = [
-            'chat_id' => $chatId,
-            'text' => $text,
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
+        // $params = [
+        //     'chat_id' => $chatId,
+        //     'text' => $text,
+        //     'reply_markup' => json_encode([
+        //         'inline_keyboard' => [
+        //             [
+        //                 ['text' => $buttonText, 'callback_data' => $callbackData]
+        //             ]
+        //         ]
+        //     ])
+        // ];
+        return Http::post(self::baseUrl() . 'sendMessage', [
+        'chat_id' => $chatId, // e.g. '@yourchannel' or numeric id
+        'text' => $text,
+        'reply_markup' => json_encode([
+            'inline_keyboard' => [
+                [
                     [
-                        ['text' => $buttonText, 'callback_data' => $callbackData]
+                        'text' => $buttonText,
+                        'callback_data' => $callbackData
                     ]
                 ]
-            ])
-        ];
+            ]
+        ])
+    ]);
 
         // Send POST request to Telegram API /sendMessage with $params
         // Use your preferred HTTP client here (e.g., Guzzle)
