@@ -18,6 +18,16 @@ class TelegramController extends Controller
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
 
+     if (isset($update['callback_query'])) {
+        $callbackQueryId = $update['callback_query']['id'];
+        $userId = $update['callback_query']['from']['id'];
+        
+        // Do something with $userId (e.g., add to cart)
+
+        Telegram::answerCallbackQuery($callbackQueryId, 'Added to cart!', false);
+    }
+
+
     if (!$chatId) {
         return response('No chat ID', 400);
     }
@@ -51,6 +61,7 @@ $photoUrl = 'https://images.pexels.com/photos/8597551/pexels-photo-8597551.jpeg?
 
 // Telegram::sendProductPost('@axumverse', $photoUrl, $product);
 Telegram::postWithInlineButton('@axumverse', 'Product XYZ', 'Add to Cart', 'add_to_cart_xyz');
+
 
 
 }
