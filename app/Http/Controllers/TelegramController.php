@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Helpers\Telegram;
+use Illuminate\Support\Facades\Cache;
 
 class TelegramController extends Controller
 {
@@ -15,37 +16,47 @@ class TelegramController extends Controller
     $data = $request->all();
     // Log::info('Telegram Webhook Data: ', $data);
 if (isset($data['callback_query'])) {
-    Log::info('Callback query received.', $data['callback_query']);
+    $callback = $data['callback_query'];
+    $callbackQueryId = $callback['id'] ?? null;
+    $user = $callback['from'] ?? [];
+    $userId = $user['id'] ?? null;
+    $username = $user['username'] ?? 'unknown';
 
-    $callbackQueryId = $data['callback_query']['id'];
-    Log::info('Extracted Callback Query ID: ' . $callbackQueryId);
+    Log::info('[Telegram Callback] Received', [
+        'callback_query_id' => $callbackQueryId,
+        'user_id' => $userId,
+        'username' => '@' . $username,
+        'data' => $callback['data'] ?? 'no_data',
+    ]);
 
-    $userId = $data['callback_query']['from']['id'];
-    Log::info('Extracted User ID: ' . $userId);
-
-    // Optional: log username if available
-    if (isset($data['callback_query']['from']['username'])) {
-        Log::info('Username: @' . $data['callback_query']['from']['username']);
+    // Prevent duplicate processing (e.g., within 10 seconds)
+    $cacheKey = 'telegram_callback_' . $callbackQueryId;
+    if (Cache::has($cacheKey)) {
+        Log::info('[Telegram Callback] Duplicate ignored: ' . $callbackQueryId);
+        return;
     }
+    Cache::put($cacheKey, true, 10); // Cache for 10 seconds
 
-    // Do something with $userId (e.g., add to cart)
-    Log::info('Sending alert for user: ' . $userId);
+    // Process action here (e.g., add to cart)
+    Log::info('[Telegram Callback] Processing Add to Cart for user: ' . $userId);
 
-    Telegram::alertCallbackQuery($callbackQueryId, 'Added to cart! @' . $userId, true);
+    // Respond with alert
+    Telegram::alertCallbackQuery($callbackQueryId, '🛒 Added to cart! @' . $username, true);
 }
+
 
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
 
-    if (isset($data['callback_query'])) {
-        $callbackQueryId = $data['callback_query']['id'];
-        $userId = $data['callback_query']['from']['id'];
+    // if (isset($data['callback_query'])) {
+    //     $callbackQueryId = $data['callback_query']['id'];
+    //     $userId = $data['callback_query']['from']['id'];
 
-        // Do something with $userId (e.g., add to cart)
-        Log::info('Callback Query User ID: ' . $userId);
+    //     // Do something with $userId (e.g., add to cart)
+    //     Log::info('Callback Query User ID: ' . $userId);
 
-        Telegram::alertCallbackQuery($callbackQueryId, 'Added to cart! @' . $userId, true);
-    }
+    //     Telegram::alertCallbackQuery($callbackQueryId, 'Added to cart! @' . $userId, true);
+    // }
 
 
     if (!$chatId) {
