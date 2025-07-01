@@ -24,7 +24,7 @@ class TelegramController extends Controller
 
         // Do something with $userId (e.g., add to cart)
 
-        Telegram::alertCallbackQuery($callbackQueryId, 'Added to cart!', false);
+        Telegram::alertCallbackQuery($callbackQueryId, 'Added to cart!', true);
     }
 
 
