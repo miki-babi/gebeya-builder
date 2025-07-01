@@ -340,6 +340,39 @@ public static function sendProductPost($chatId, $photoUrl, $product)
     }
 }
 
+ // Post message with inline button to a channel
+    public static function postWithInlineButton($chatId, $text, $buttonText, $callbackData)
+    {
+        $params = [
+            'chat_id' => $chatId,
+            'text' => $text,
+            'reply_markup' => json_encode([
+                'inline_keyboard' => [
+                    [
+                        ['text' => $buttonText, 'callback_data' => $callbackData]
+                    ]
+                ]
+            ])
+        ];
+
+        // Send POST request to Telegram API /sendMessage with $params
+        // Use your preferred HTTP client here (e.g., Guzzle)
+        // Return the API response
+    }
+
+    // Answer callback query with optional alert
+    public static function alertCallbackQuery($callbackQueryId, $text = '', $showAlert = false)
+    {
+        $params = [
+            'callback_query_id' => $callbackQueryId,
+            'text' => $text,
+            'show_alert' => $showAlert,
+        ];
+
+        // Send POST request to Telegram API /answerCallbackQuery with $params
+        // Use your preferred HTTP client here
+        // Return the API response
+    }
 
 
 }
