@@ -382,6 +382,7 @@ public static function sendProductPost($chatId, $photoUrl, $product)
             'text' => $text,
             'show_alert' => $showAlert,
         ];
+        return Http::post(self::baseUrl() . 'answerCallbackQuery', $params);
 
         // Send POST request to Telegram API /answerCallbackQuery with $params
         // Use your preferred HTTP client here
