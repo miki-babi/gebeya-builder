@@ -16,6 +16,7 @@ class Product extends Model
         'is_available',
         'stock_quantity',
     ];
+    
     protected $casts = [
         'image_url' => 'array',
         'category' => 'array',

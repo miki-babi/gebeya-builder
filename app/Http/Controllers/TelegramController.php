@@ -44,7 +44,7 @@ class TelegramController extends Controller
     'name' => 'Green T-Shirt',
     'description' => 'Comfortable cotton t-shirt',
     'category' => 'Clothing',
-    'web_app_url' => 'https://t.me/gebeya_builderbot?startapp=store',
+    'web_app_url' => 'https://t.me/gebeya_builderbot?startapp=adminueiowrueuerioew',
 ];
 
 $photoUrl = 'https://images.pexels.com/photos/8597551/pexels-photo-8597551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
