@@ -18,10 +18,10 @@ class TelegramController extends Controller
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
 
-     if (isset($update['callback_query'])) {
-        $callbackQueryId = $update['callback_query']['id'];
-        $userId = $update['callback_query']['from']['id'];
-        
+    if (isset($data['callback_query'])) {
+        $callbackQueryId = $data['callback_query']['id'];
+        $userId = $data['callback_query']['from']['id'];
+
         // Do something with $userId (e.g., add to cart)
 
         Telegram::answerCallbackQuery($callbackQueryId, 'Added to cart!', false);
