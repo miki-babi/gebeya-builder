@@ -13,7 +13,26 @@ class TelegramController extends Controller
     public function handleWebhook(Request $request)
 {
     $data = $request->all();
-    Log::info('Telegram Webhook Data: ', $data);
+    // Log::info('Telegram Webhook Data: ', $data);
+if (isset($data['callback_query'])) {
+    Log::info('Callback query received.', $data['callback_query']);
+
+    $callbackQueryId = $data['callback_query']['id'];
+    Log::info('Extracted Callback Query ID: ' . $callbackQueryId);
+
+    $userId = $data['callback_query']['from']['id'];
+    Log::info('Extracted User ID: ' . $userId);
+
+    // Optional: log username if available
+    if (isset($data['callback_query']['from']['username'])) {
+        Log::info('Username: @' . $data['callback_query']['from']['username']);
+    }
+
+    // Do something with $userId (e.g., add to cart)
+    Log::info('Sending alert for user: ' . $userId);
+
+    Telegram::alertCallbackQuery($callbackQueryId, 'Added to cart! @' . $userId, true);
+}
 
     $chatId = $data['message']['chat']['id'] ?? null;
     $text = strtolower($data['message']['text'] ?? '');
