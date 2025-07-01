@@ -41,7 +41,7 @@ if (isset($data['callback_query'])) {
     Log::info('[Telegram Callback] Processing Add to Cart for user: ' . $userId);
 
     // Respond with alert
-    Telegram::alertCallbackQuery($callbackQueryId, '🛒 Added to cart! @' . $username, true);
+    Telegram::alertCallbackQuery($callbackQueryId, '🛒 Added to cart! @' . $username, false);
 }
 
 
